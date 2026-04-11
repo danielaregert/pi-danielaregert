@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-42M4PCPVY9"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-42M4PCPVY9');
+    </script>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-57P8ZJTP');</script>
+    <!-- End Google Tag Manager -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daniela Regert - Freelance Full Stack Web Developer</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <meta name="description" content="Daniela Regert, full stack web developer">
+    <meta property="og:image" content="https://danielaregert.com.ar/img/dani-meta-thumbnail.png" />
+    <link rel="icon" type="image/x-icon" href="https://danielaregert.com.ar/img/dani-favicon.ico">
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="ihttp://danielaregert.com.ar/img/dani-meta-thumbnail.png" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet" />
+    <!-- js-dos v8 (emulador DOS en WebAssembly) -->
+    <link rel="stylesheet" href="https://v8.js-dos.com/latest/js-dos.css">
+    <script src="https://v8.js-dos.com/latest/js-dos.js"></script>
+    <link rel="icon" type="image/x-icon" href="img/dani-favicon.ico">
+    <style>
+        p {
+            text-shadow: 0 0 7px rgba(255, 255, 255, .3), 0 0 3px rgba(255, 255, 255, .3);
+        }
+
+        .container-a {
+            font-size: 2rem;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .animation {
+            height: 60px;
+            overflow: hidden;
+            margin-left: 1rem;
+        }
+
+        .animation>div>div {
+            padding: 0.25rem 0.75rem;
+            height: 2.81rem;
+            margin-bottom: 2.81rem;
+            display: inline-block;
+        }
+
+        .animation div:first-child {
+            animation: text-animation 8s infinite;
+        }
+
+        @keyframes text-animation {
+            0%, 10%, 90%, 100% { margin-top: 0; }
+            20%, 30%, 70%, 80% { margin-top: -5.62rem; }
+            40%, 60% { margin-top: -11.24rem; }
+        }
+    </style>
+</head>
+
+<body class="bg-white text-gray-900 font-sans">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-57P8ZJTP"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+    <main class="flex flex-col">
+
+
+
+        <!-- Pantalla DOOM -->
+        <section id="doom" class="w-screen min-h-dvh bg-white flex flex-col items-center justify-center md:px-[1rem] md:py-[1rem]">
+                  <nav class="fixed top-0 w-full">
+                <ul class="flex justify-end space-x-4 px-2">
+                    <li><a href="#doom" class="text-lime-900 mt-5">DOOM</a></li>
+                    <li><a href="#contacto" class="text-lime-900 mt-5 me-5">Contacto</a></li>
+                </ul>
+            </nav>
+
+            <div class="w-full h-full bg-gradient-to-br from-pink-100 to-violet-50 rounded-2xl shadow-sm flex flex-col items-center justify-center text-center p-6 gap-4">
+                <div class="text-4xl font-bold text-lime-900">¿Te aburrís?</div>
+                <p class="text-base text-lime-900">Jugá un rato al <span class="font-bold">DOOM libre</span> ( •̀ᴗ•́ )و ̑̑</p>
+                <div id="doom-stage" class="relative w-full max-w-[1024px] aspect-[4/3] bg-black rounded-xl overflow-hidden border border-lime-900/20">
+                    <div id="dos" class="absolute inset-0 w-full h-full"></div>
+                    <div id="doom-overlay" class="absolute inset-0 flex flex-col items-center justify-center bg-black text-lime-200 p-6 text-center pointer-events-none">
+                        <div class="w-7 h-7 border-4 border-lime-900/40 border-t-lime-400 rounded-full animate-spin mb-3"></div>
+                        <div class="font-bold">Cargando DOOM…</div>
+                        <p class="text-xs opacity-70 mt-1">Preparando el emulador js-dos</p>
+                    </div>
+                </div>
+                <p class="text-xs text-lime-900/70">WASD/Flechas mover · Espacio usar · Ctrl disparar · Shift correr · 1-7 armas · Esc menú</p>
+                <p class="text-[10px] text-lime-900/60">IWAD: <a class="underline" href="https://freedoom.github.io/" target="_blank" rel="noopener">Freedoom</a> (BSD) · Motor: <a class="underline" href="https://js-dos.com/" target="_blank" rel="noopener">js-dos</a> (GPL)</p>
+            </div>
+        </section>
+
+        <!-- Pantalla 3 -->
+        <section id="contacto" class="w-screen h-dvh bg-white flex flex-col items-center justify-center md:px-[1rem] md:pb-[1rem]">
+            <div class="w-full h-full bg-gradient-to-br from-pink-100 to-purple-100 rounded-2xl shadow-sm flex flex-col items-center justify-center text-center p-6">
+                <h2 class="text-2xl text-gray-700 w-full sm:w-80 pb-5 text-lime-900">꒰ •ᴗ•｡꒱۶ </h2>
+                <p class="hidden">Escribime!</p>
+                <p class="text-lg text-gray-700 w-full sm:w-80 text-lime-900">Escribime, <span class="font-bold">estoy disponible para trabajar!</span></p>
+               <p id="result" class="text-lime-800 pb-5"></p>
+                              <form id="contactForm" class="flex flex-col gap-4 w-full max-w-lg mx-auto p-8 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 outline-2 outline-offset-2 outline-dashed outline-lime-700">
+  
+  <input type="hidden" name="access_key" value="28a580e8-9dd5-4114-8a49-e1db9866a752">
+
+  <input 
+    type="text" 
+    name="name" 
+    placeholder="Nombre" 
+    required
+    class="bg-white/5 border border-white/10 rounded-xl px-5 py-3 placeholder-lime-700 transition-all duration-300 outline-1 outline-offset-2 outline-dashed outline-lime-700"
+  >
+
+  <input 
+    type="email" 
+    name="email" 
+    placeholder="Email" 
+    required
+    class="bg-white/5 border border-white/10 rounded-xl px-5 py-3 placeholder-lime-700 focus:bg-white/10 transition-all duration-300 outline-1 outline-offset-2 outline-dashed outline-lime-700"
+  >
+
+  <textarea 
+    name="message" 
+    placeholder="Mensaje" 
+    required
+    rows="5"
+    class="bg-white/5 border border-white/10 rounded-xl px-5 py-3 placeholder-lime-700 focus:bg-white/10 transition-all duration-300 resize-none outline-1 outline-offset-2 outline-dashed outline-lime-700"
+  ></textarea>
+
+  <input type="checkbox" name="botcheck" class="hidden" style="display:none;">
+
+
+<button 
+    type="submit"
+    class="text-white px-6 py-3 rounded-full bg-lime-900"
+  >
+    Enviar
+  </button>
+
+</form>
+ 
+  </div>
+  
+
+
+            </div>
+<footer class="fixed bottom-0 w-full" style="background: #ffffff;
+background: linear-gradient(0deg,rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);">
+    <ul class="flex justify-center gap-2 md:justify-between">
+        
+
+        <li class="pb-5 pe-5"><a href="https://www.linkedin.com/in/danielaregert/" class="text-lime-900"><i class="bi bi-linkedin"></i></a>
+              <a href="https://github.com/danielaregert" class="text-lime-900"><i class="bi bi-github"></i></a>
+            <a href="https://www.behance.net/danielaregert" class="text-lime-900"><i class="bi bi-behance"></i></a>
+      </li>
+        
+                </ul>
+</footer>
+
+        </section>
+
+          <!-- Pantalla 3 
+        <section class="w-screen h-dvh bg-white flex flex-col items-center justify-center md:px-[1rem] md:pb-[1rem]">
+            <div class="w-full h-full bg-gradient-to-br from-pink-100 to-purple-100 rounded-2xl shadow-sm flex flex-col items-center justify-center text-center p-6">
+ 
+
+            </div>
+        </section>
+-->
+    </main>
+
+<script>
+        const form = document.getElementById("contactForm");
+const result = document.getElementById("result");
+
+form.addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const formData = new FormData(form);
+
+  result.innerHTML = "Enviando...";
+
+  fetch("https://api.web3forms.com/submit", {
+    method: "POST",
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+
+    if (data.success) {
+      result.innerHTML = "Mensaje enviado correctamente";
+      form.reset();
+    } else {
+      result.innerHTML = "Error al enviar el mensaje";
+    }
+
+  })
+  .catch(error => {
+    result.innerHTML = "Error de conexión";
+    result.style.color = "red";
+  });
+});
+
+// ── DOOM (js-dos v8) ──────────────────────────────────────────────
+(function () {
+  var BUNDLE_URL = "assets/doom.jsdos";
+  var overlay = document.getElementById("doom-overlay");
+  var mount = document.getElementById("dos");
+  if (!mount) return;
+
+  function hideOverlay() { if (overlay) overlay.style.display = "none"; }
+  function showError(msg) {
+    if (!overlay) return;
+    overlay.innerHTML = '<div class="font-bold text-red-400">⚠ No se pudo cargar DOOM</div><p class="text-xs opacity-70 mt-1">' + msg + '</p>';
+  }
+
+  fetch(BUNDLE_URL, { method: "HEAD" })
+    .then(function (resp) {
+      if (!resp.ok) { showError("HTTP " + resp.status); return; }
+      if (typeof Dos !== "function") { showError("js-dos no se cargó"); return; }
+      try {
+        Dos(mount, {
+          url: BUNDLE_URL,
+          theme: "dark",
+          backend: "dosboxX",
+          autoStart: true,
+          onEvent: function (event) {
+            if (event === "emu-ready" || event === "ci-ready" || event === "bnd-ready") {
+              hideOverlay();
+            }
+          }
+        });
+        setTimeout(hideOverlay, 8000);
+      } catch (err) {
+        showError(String(err && err.message || err));
+      }
+    })
+    .catch(function (err) { showError(String(err && err.message || err)); });
+})();
+</script>
+
+</body>
+</html>
+
+
