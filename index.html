@@ -8,7 +8,6 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-42M4PCPVY9');
     </script>
     <!-- Google Tag Manager -->
@@ -25,15 +24,26 @@
     <meta name="description" content="Daniela Regert, full stack web developer">
     <meta property="og:image" content="https://danielaregert.com.ar/img/dani-meta-thumbnail.png" />
     <link rel="icon" type="image/x-icon" href="https://danielaregert.com.ar/img/dani-favicon.ico">
-<meta property="og:image:type" content="image/jpeg" />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="ihttp://danielaregert.com.ar/img/dani-meta-thumbnail.png" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="http://danielaregert.com.ar/img/dani-meta-thumbnail.png" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet" />
     <link rel="icon" type="image/x-icon" href="img/dani-favicon.ico">
+
+    <!-- GSAP + ScrollTrigger -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+    <!-- Matter.js -->
+    <script src="https://cdn.jsdelivr.net/npm/matter-js@0.20.0/build/matter.min.js"></script>
+
     <style>
+        html, body {
+            overflow-x: hidden;
+        }
+
         p {
             text-shadow: 0 0 7px rgba(255, 255, 255, .3), 0 0 3px rgba(255, 255, 255, .3);
         }
@@ -68,6 +78,49 @@
             20%, 30%, 70%, 80% { margin-top: -5.62rem; }
             40%, 60% { margin-top: -11.24rem; }
         }
+
+        /* Caminantes - fixed al viewport, ocultos por defecto */
+        .walker {
+            position: fixed;
+            z-index: 40;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        /* Orejitas que se voltean en loop */
+        .ear {
+            display: inline-block;
+            animation: ear-flip 1s steps(1) infinite;
+        }
+        @keyframes ear-flip {
+            0%, 50%   { transform: scaleY(1); }
+            50.01%, 100% { transform: scaleY(-1); }
+        }
+
+        /* Swap entre dos caracteres */
+        .char-swap {
+            position: relative;
+            display: inline-block;
+        }
+        .char-swap .char-b {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        .char-swap .char-a {
+            animation: char-swap-a 1.4s steps(1) infinite;
+        }
+        .char-swap .char-b {
+            animation: char-swap-b 1.4s steps(1) infinite;
+        }
+        @keyframes char-swap-a {
+            0%, 50%   { opacity: 1; }
+            50.01%, 100% { opacity: 0; }
+        }
+        @keyframes char-swap-b {
+            0%, 50%   { opacity: 0; }
+            50.01%, 100% { opacity: 1; }
+        }
     </style>
 </head>
 
@@ -76,150 +129,598 @@
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-57P8ZJTP"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-    <main class="flex flex-col">
 
-        <!-- Pantalla 1 -->
-        <section class="w-screen h-dvh bg-white flex items-center justify-center md:px-[1rem] md:py-[1rem]">
-            <nav class="fixed top-0 w-full">
-                <ul class="flex justify-end space-x-4 px-2">
-                    <li><a href="#contacto" class="text-lime-900 mt-5 me-5">Contacto</a></li>
-                </ul>
-            </nav>
-            <div class="w-full h-full bg-gradient-to-br from-pink-100 to-violet-50 rounded-2xl shadow-sm flex flex-col items-center justify-center text-center p-6">
-                <div class="container-a">
-                    <section class="animation">
-                        <div class="first text-lime-900"><div>ʕʘ̅͜ʘ̅ʔ✿ʕ ◕ᴥ◕ ʔ</div></div>
-                        <div class="second text-lime-900"><div>⊂(￣(ｴ)￣)⊃</div></div>
-                        <div class="third text-lime-900"><div>*ʕ◉ᴥ◉ʔ*</div></div>
-                    </section>
+<!-- SVG filter para distorsionar el formulario como goma -->
+<svg width="0" height="0" style="position:absolute;">
+    <defs>
+        <filter id="rubber-filter">
+            <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="2" seed="3" result="noise"/>
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="0" id="rubber-displace"/>
+        </filter>
+    </defs>
+</svg>
+
+    <!-- Nav fijo -->
+    <nav class="fixed top-0 w-full z-50">
+        <ul class="flex justify-end space-x-4 px-2">
+            <li><a href="#contacto" class="text-lime-900 mt-5 me-5">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <!-- Caminantes: viven fijos en el viewport -->
+    <p id="walker1" class="walker text-base text-lime-900"><span class="ear">૮</span>₍ ˶ᵔ ᵕ ᵔ˶ ₎<span class="ear">ა</span></p>
+    <p id="walker2" class="walker text-base text-lime-900"><span class="char-swap"><span class="char-a">Ñ</span><span class="char-b">✧</span></span> ( • ᴗ <span class="char-swap"><span class="char-a">-</span><span class="char-b">•</span></span> ) <span class="char-swap"><span class="char-a">✧</span><span class="char-b">Ñ</span></span></p>
+    <p id="walker3" class="walker text-base text-lime-900">~(<span class="char-swap"><span class="char-a">˘</span><span class="char-b">¯</span></span><span class="char-swap"><span class="char-a">▾</span><span class="char-b">³</span></span><span class="char-swap"><span class="char-a">˘</span><span class="char-b">¯</span></span>~)</p>
+    <p id="walker4" class="walker text-base text-lime-900">(~<span class="char-swap"><span class="char-a">˘</span><span class="char-b">¯</span></span><span class="char-swap"><span class="char-a">▾</span><span class="char-b">³</span></span><span class="char-swap"><span class="char-a">˘</span><span class="char-b">¯</span></span>)~</p>
+    <!-- Combinado: cuando se encuentran en el centro -->
+    <p id="walker-combined" class="walker text-base text-lime-900" style="white-space:nowrap;">
+        (~˘▾˘)<span id="hand-left" class="inline-block" style="transform-origin: right center;">~</span><span id="hand-right" class="inline-block" style="transform-origin: left center;">~</span>(˘▾˘~)
+    </p>
+    <!-- Canvas para la lluvia matter.js -->
+    <canvas id="rain-canvas" class="fixed inset-0 z-30 pointer-events-none" style="display:none;"></canvas>
+    <!-- ASCII art que se revela como lámina -->
+
+    <!-- ========== PANTALLA 1 - scroll vertical normal ========== -->
+    <section class="w-screen h-dvh bg-white flex items-center justify-center md:px-[1rem] md:py-[1rem]">
+        <div class="w-full h-full bg-gradient-to-br from-pink-100 to-violet-50 rounded-2xl shadow-sm flex flex-col items-center justify-center text-center p-6">
+            <div class="container-a">
+                <section class="animation">
+                    <div class="first text-lime-900"><div>ʕʘ̅͜ʘ̅ʔ✿ʕ ◕ᴥ◕ ʔ</div></div>
+                    <div class="second text-lime-900"><div>⊂(￣(ｴ)￣)⊃</div></div>
+                    <div class="third text-lime-900"><div>*ʕ◉ᴥ◉ʔ*</div></div>
+                </section>
+            </div>
+            <div class="text-6xl font-bold mb-4 text-lime-900">Hola</div>
+            <p class="text-base text-gray-700 w-full sm:w-80 text-lime-900">soy Daniela Regert(≖ᴗ≖)</p>
+            <p class="text-base text-gray-700 w-full sm:w-80 text-lime-900">y ESTA WEB la estoy mostrando desde mi Raspberry PI (˶ˆᗜˆ˵)</p>
+        </div>
+    </section>
+
+    <!-- Cartel de los glaciares - fixed al viewport -->
+    <div id="ascii-mask" class="fixed z-40 pointer-events-none" style="left:50%; top:50%; transform:translate(-50%,-50%); overflow:hidden; height:0px;">
+        <pre id="ascii-message" class="text-lime-900" style="font-size:clamp(4px,1.1vw,10px); line-height:1.1; font-family:monospace; text-align:center; white-space:pre; margin:0;">
+ ,---.    ,---.  ,--.,--.   ,--.,------.,--.   ,--. ,-----.  ,---.
+'   .-'  /  O  \ |  | \  `.'  / |  .---'|   `.'   |'  .-.  ''   .-'
+`.  `-. |  .-.  ||  |  \     /  |  `--, |  |'.'|  ||  | |  |`.  `-.
+.-'    ||  | |  ||  '--.\   /   |  `---.|  |   |  |'  '-'  '.-'    |
+`-----' `--' `--'`-----' `-'    `------'`--'   `--' `-----' `-----'
+,--.    ,-----.  ,---.
+|  |   '  .-.  ''   .-'
+|  |   |  | |  |`.  `-.
+|  '--.'  '-'  '.-'    |
+`-----' `-----' `-----'
+ ,----.   ,--.     ,---.   ,-----.,--.  ,---.  ,------. ,------. ,---.
+'  .-./   |  |    /  O  \ '  .--./|  | /  O  \ |  .--. '|  .---''   .-'
+|  | .---.|  |   |  .-.  ||  |    |  ||  .-.  ||  '--'.'|  `--, `.  `-.
+'  '--'  ||  '--.|  | |  |'  '--'\|  ||  | |  ||  |\  \ |  `---..-'    |
+ `------' `-----'`--' `--' `-----'`--'`--' `--'`--' '--'`------'`-----'
+</pre>
+    </div>
+
+    <!-- ========== PANTALLA 2 - se pinea, los caminantes pasan ========== -->
+    <section id="pinned-stage" class="w-screen h-dvh bg-white flex items-center justify-center md:px-[1rem] md:py-[1rem]">
+        <div class="w-full h-full bg-gradient-to-br from-pink-100 to-violet-50 rounded-2xl shadow-sm flex flex-col items-center justify-center text-center p-6">
+            <div id="stage-text-mask" class="overflow-hidden">
+                <div id="stage-text">
+                    <div class="animate-bounce text-6xl font-bold mb-4 text-lime-900">Este sitio</div>
+                    <p class="text-base text-gray-700 w-full sm:w-80 text-lime-900">está en construcción</p>
+                    <p class="text-base text-gray-700 w-full sm:w-80 text-lime-900">(づ￣ ³￣)☛</p>
+                    <p class="text-base text-gray-700 w-full sm:w-80 text-lime-900">Powered by <span class="font-bold"><a href="https://www.linkedin.com/in/danielaregert/" title="Visit my linkedin profile"> Argentinian Devs</a></span></p>
                 </div>
-                <div class="text-6xl font-bold mb-4 text-lime-900">Hola</div>
-                <p class="text-base text-gray-700 w-full sm:w-80 text-lime-900">soy Daniela Regert(≖ᴗ≖)</p>
-                <p class="text-base text-gray-700 w-full sm:w-80 text-lime-900">y ESTA WEB la estoy mostrando desde mi Raspberry PI (˶ˆᗜˆ˵)</p>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Pantalla 2 -->
-        <section  class="hidden w-screen h-dvh bg-white flex items-center justify-center md:px-[1rem] md:py-[1rem]">
-            <div class="w-full h-full bg-gradient-to-br from-pink-100 to-violet-50 rounded-2xl shadow-sm flex flex-col items-center justify-center text-center p-6">
-                <div class="animate-bounce text-6xl font-bold mb-4 text-lime-900">Este sitio</div>
-                <p class="text-base text-gray-700 w-full sm:w-80 text-lime-900">está en construcción</p>
-                <p class="text-base text-gray-700 w-full sm:w-80 text-lime-900">(づ￣ ³￣)☛</p>
-                <p class="text-base text-gray-700 w-full sm:w-80 text-lime-900">Powered by <span class="font-bold"><a href="https://www.linkedin.com/in/danielaregert/" title="Visit my linkedin profile"> Argentinian Devs</a></span></p>
-            </div>
-        </section>
+    <!-- ========== PANTALLA 3 - Contacto (scroll vertical normal) ========== -->
+    <section id="contacto" class="w-screen h-dvh bg-white flex flex-col items-center justify-center md:px-[1rem] md:pb-[1rem]">
+        <div class="w-full h-full bg-gradient-to-br from-pink-100 to-purple-100 rounded-2xl shadow-sm flex flex-col items-center justify-center text-center p-6">
+            <h2 id="vacuum-guy" class="text-2xl text-gray-700 w-full sm:w-80 pb-5 text-lime-900">꒰ •ᴗ•｡꒱<span id="vacuum-arm" class="inline-block origin-bottom-left">۶</span></h2>
+            <p class="text-lg text-gray-700 w-full sm:w-80 text-lime-900">Escribime!</p>
+            <p id="result" class="text-lime-800 pb-5"></p>
+            <form id="contactForm" class="flex flex-col gap-4 w-full max-w-lg mx-auto p-8 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 outline-2 outline-offset-2 outline-dashed outline-lime-700">
 
-        <!-- Pantalla 3 -->
-        <section id="contacto" class="w-screen h-dvh bg-white flex flex-col items-center justify-center md:px-[1rem] md:pb-[1rem]">
-            <div class="w-full h-full bg-gradient-to-br from-pink-100 to-purple-100 rounded-2xl shadow-sm flex flex-col items-center justify-center text-center p-6">
-                <h2 class="text-2xl text-gray-700 w-full sm:w-80 pb-5 text-lime-900">꒰ •ᴗ•｡꒱۶ </h2>
-                <p class="hidden">Escribime!</p>
-                <p class="text-lg text-gray-700 w-full sm:w-80 text-lime-900">Escribime, <span class="font-bold">estoy disponible para trabajar!</span></p>
-               <p id="result" class="text-lime-800 pb-5"></p>
-                              <form id="contactForm" class="flex flex-col gap-4 w-full max-w-lg mx-auto p-8 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 outline-2 outline-offset-2 outline-dashed outline-lime-700">
-  
-  <input type="hidden" name="access_key" value="28a580e8-9dd5-4114-8a49-e1db9866a752">
+                <input type="hidden" name="access_key" value="28a580e8-9dd5-4114-8a49-e1db9866a752">
 
-  <input 
-    type="text" 
-    name="name" 
-    placeholder="Nombre" 
-    required
-    class="bg-white/5 border border-white/10 rounded-xl px-5 py-3 placeholder-lime-700 transition-all duration-300 outline-1 outline-offset-2 outline-dashed outline-lime-700"
-  >
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Nombre"
+                    required
+                    class="bg-white/5 border border-white/10 rounded-xl px-5 py-3 placeholder-lime-700 transition-all duration-300 outline-1 outline-offset-2 outline-dashed outline-lime-700"
+                >
 
-  <input 
-    type="email" 
-    name="email" 
-    placeholder="Email" 
-    required
-    class="bg-white/5 border border-white/10 rounded-xl px-5 py-3 placeholder-lime-700 focus:bg-white/10 transition-all duration-300 outline-1 outline-offset-2 outline-dashed outline-lime-700"
-  >
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    required
+                    class="bg-white/5 border border-white/10 rounded-xl px-5 py-3 placeholder-lime-700 focus:bg-white/10 transition-all duration-300 outline-1 outline-offset-2 outline-dashed outline-lime-700"
+                >
 
-  <textarea 
-    name="message" 
-    placeholder="Mensaje" 
-    required
-    rows="5"
-    class="bg-white/5 border border-white/10 rounded-xl px-5 py-3 placeholder-lime-700 focus:bg-white/10 transition-all duration-300 resize-none outline-1 outline-offset-2 outline-dashed outline-lime-700"
-  ></textarea>
+                <textarea
+                    name="message"
+                    placeholder="Mensaje"
+                    required
+                    rows="5"
+                    class="bg-white/5 border border-white/10 rounded-xl px-5 py-3 placeholder-lime-700 focus:bg-white/10 transition-all duration-300 resize-none outline-1 outline-offset-2 outline-dashed outline-lime-700"
+                ></textarea>
 
-  <input type="checkbox" name="botcheck" class="hidden" style="display:none;">
+                <input type="checkbox" name="botcheck" class="hidden" style="display:none;">
 
+                <button
+                    type="submit"
+                    class="text-white px-6 py-3 rounded-full bg-lime-900"
+                >
+                    Enviar
+                </button>
 
-<button 
-    type="submit"
-    class="text-white px-6 py-3 rounded-full bg-lime-900"
-  >
-    Enviar
-  </button>
+            </form>
+        </div>
+    </section>
 
-</form>
- 
-  </div>
-  
-
-
-            </div>
-<footer class="fixed bottom-0 w-full" style="background: #ffffff;
-background: linear-gradient(0deg,rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);">
-    <ul class="flex justify-center gap-2 md:justify-between">
-        <li><a href="Daniela-Regert-Resume-Lead-Frontend.pdf" target="_blank" class="text-lime-900">CV</a></li>
-
-        <li class="pb-5 pe-5"><a href="https://www.linkedin.com/in/danielaregert/" class="text-lime-900"><i class="bi bi-linkedin"></i></a>
-              <a href="https://github.com/danielaregert" class="text-lime-900"><i class="bi bi-github"></i></a>
-            <a href="https://www.behance.net/danielaregert" class="text-lime-900"><i class="bi bi-behance"></i></a>
-      </li>
-        
-                </ul>
-</footer>
-
-        </section>
-
-          <!-- Pantalla 3 
-        <section class="w-screen h-dvh bg-white flex flex-col items-center justify-center md:px-[1rem] md:pb-[1rem]">
-            <div class="w-full h-full bg-gradient-to-br from-pink-100 to-purple-100 rounded-2xl shadow-sm flex flex-col items-center justify-center text-center p-6">
- 
-
-            </div>
-        </section>
--->
-    </main>
+    <!-- Footer fijo -->
+    <footer class="fixed bottom-0 w-full z-50" style="background: #ffffff; background: linear-gradient(0deg,rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);">
+        <ul class="flex justify-center gap-2 md:justify-between">
+            <li><a href="Daniela-Regert-Resume-Lead-Frontend.pdf" target="_blank" class="text-lime-900">CV</a></li>
+            <li class="pb-5 pe-5">
+                <a href="https://www.linkedin.com/in/danielaregert/" class="text-lime-900"><i class="bi bi-linkedin"></i></a>
+                <a href="https://github.com/danielaregert" class="text-lime-900"><i class="bi bi-github"></i></a>
+                <a href="https://www.behance.net/danielaregert" class="text-lime-900"><i class="bi bi-behance"></i></a>
+            </li>
+        </ul>
+    </footer>
 
 <script>
-        const form = document.getElementById("contactForm");
-const result = document.getElementById("result");
+    gsap.registerPlugin(ScrollTrigger);
 
-form.addEventListener("submit", function(e) {
-  e.preventDefault();
+    // ========== PLACA 2 PINEADA + CAMINANTES ==========
+    const walkersTl = gsap.timeline({
+        scrollTrigger: {
+            trigger: "#pinned-stage",
+            start: "top top",
+            // ocultar texto + los 2 caminantes cruzan simultáneamente
+            end: "+=1200%",
+            pin: true,
+            scrub: 1,
+            onLeaveBack: () => {
+                // Limpiar matter.js cuando scrolleás para arriba
+                const canvas = document.getElementById("rain-canvas");
+                canvas.style.display = "none";
+                if (window._matterWorld && window._matterCharBodies) {
+                    const bodies = window._matterCharBodies;
+                    for (let i = bodies.length - 1; i >= 0; i--) {
+                        window._matterWorld_ref.remove(window._matterWorld, bodies[i]);
+                        bodies.splice(i, 1);
+                    }
+                }
+            },
+        }
+    });
 
-  const formData = new FormData(form);
+    // --- FASE 0: el texto se desliza hacia arriba y se esconde (como la animación de la sección 1) ---
+    walkersTl.to("#stage-text", {
+        yPercent: -100,
+        duration: 0.5,
+        ease: "power2.in",
+    });
 
-  result.innerHTML = "Enviando...";
+    // --- CAMINANTE 1: ૮₍ ˶ᵔ ᵕ ᵔ˶ ₎ა ---
+    // Diagonal de largo: abajo-izquierda → arriba-derecha
+    walkersTl.fromTo("#walker1",
+        { left: "-10%", top: "110vh", xPercent: 0, yPercent: 0, opacity: 1 },
+        { left: "110%", top: "-10%", xPercent: 0, yPercent: 0, opacity: 1, duration: 2, ease: "none" },
+        "walk"
+    );
+    // --- CAMINANTE 2: Ñ ( • ᴗ - ) ✧ ---
+    // Diagonal opuesta de largo: abajo-derecha → arriba-izquierda
+    walkersTl.fromTo("#walker2",
+        { left: "110%", top: "110vh", xPercent: -100, yPercent: 0, opacity: 1 },
+        { left: "-10%", top: "-10%", xPercent: 0, yPercent: 0, opacity: 1, duration: 2, ease: "none" },
+        "walk+=0.3"
+    );
 
-  fetch("https://api.web3forms.com/submit", {
-    method: "POST",
-    body: formData
-  })
-  .then(response => response.json())
-  .then(data => {
+    // --- CAMINANTE 3: ~(˘▾˘~) ---
+    // Horizontal: derecha → centro (se frena)
+    walkersTl.fromTo("#walker3",
+        { left: "110%", top: "50%", xPercent: 0, yPercent: -50, opacity: 1 },
+        { left: "50%", top: "50%", xPercent: -10, yPercent: -50, opacity: 1, duration: 1.5, ease: "power2.out" },
+        "walk+=1.7"
+    );
 
-    if (data.success) {
-      result.innerHTML = "Mensaje enviado correctamente";
-      form.reset();
-    } else {
-      result.innerHTML = "Error al enviar el mensaje";
+    // --- CAMINANTE 4: (~˘▾˘)~ ---
+    // Horizontal opuesto: izquierda → centro (se frena)
+    walkersTl.fromTo("#walker4",
+        { left: "-10%", top: "50%", xPercent: 0, yPercent: -50, opacity: 1 },
+        { left: "50%", top: "50%", xPercent: -90, yPercent: -50, opacity: 1, duration: 1.5, ease: "power2.out" },
+        "walk+=1.7"
+    );
+
+    // --- SE ENCUENTRAN: ocultar individuales, mostrar combinado ---
+    walkersTl.call(() => {
+        document.getElementById("walker3").style.opacity = 0;
+        document.getElementById("walker4").style.opacity = 0;
+    }, [], "meet");
+    walkersTl.fromTo("#walker-combined",
+        { left: "50%", top: "50%", xPercent: -50, yPercent: -50, opacity: 0 },
+        { opacity: 1, duration: 0.1 },
+        "meet"
+    );
+
+    // --- ESTADO 2: inclinados en V invertida (∧) ---
+    walkersTl.to("#hand-left", {
+        rotation: -45,
+        duration: 0.3,
+        ease: "power1.in",
+    }, "meet+=0.3");
+    walkersTl.to("#hand-right", {
+        rotation: 45,
+        duration: 0.3,
+        ease: "power1.in",
+    }, "meet+=0.3");
+
+    // --- ESTADO 3: apuntando abajo en V (∨) ---
+    walkersTl.to("#hand-left", {
+        rotation: -135,
+        duration: 0.3,
+        ease: "power2.in",
+    }, "meet+=0.8");
+    walkersTl.to("#hand-right", {
+        rotation: 135,
+        duration: 0.3,
+        ease: "power2.in",
+    }, "meet+=0.8");
+
+    // --- Ocultar el combinado cuando bajan los bracitos ---
+    walkersTl.to("#walker-combined", {
+        opacity: 0,
+        duration: 0.3,
+    }, "meet+=1.1");
+
+    // --- ASCII ART se despliega como lámina de arriba a abajo ---
+    walkersTl.to("#ascii-mask", {
+        height: "auto",
+        duration: 1.5,
+        ease: "power2.out",
+    }, "meet+=1.2");
+
+    // --- Se mantiene visible para leer bien ---
+
+    // --- ASCII vuelan contra el cartel y caen ---
+    let impactStarted = false;
+    walkersTl.call(() => {
+        if (!impactStarted) { impactStarted = true; startAsciiImpact(); }
+    }, [], "meet+=6");
+
+    // --- Mucho scroll mientras los caracteres siguen volando ---
+
+    // --- Después el cartel se recoge y desaparece ---
+    walkersTl.to("#ascii-mask", {
+        height: 0,
+        duration: 0.8,
+        ease: "power2.in",
+    }, "meet+=10");
+
+    // --- Los ASCII quedan acumulados, no se limpian ---
+
+    // --- Cuando el formulario entra en vista, agregar body para que reboten contra él ---
+    let formBodyAdded = false;
+    ScrollTrigger.create({
+        trigger: "#contacto",
+        start: "top bottom",
+        onEnter: () => {
+            if (formBodyAdded || !window._matterWorld) return;
+            formBodyAdded = true;
+            const formEl = document.getElementById("contactForm");
+            const r = formEl.getBoundingClientRect();
+            const formBody = window._matterBodies.rectangle(
+                r.left + r.width / 2,
+                r.top + r.height / 2,
+                r.width + 20,
+                r.height + 20,
+                { isStatic: true, restitution: 0.6, label: "form" }
+            );
+            window._matterWorld_ref.add(window._matterWorld, formBody);
+            window._matterFormBody = formBody;
+        }
+    });
+
+    // --- Aspiradora: ꒰ •ᴗ•｡꒱۶ aspira cuando el usuario deja de scrollear 3s en la placa 3 ---
+    let vacuumStarted = false;
+    let scrollIdleTimer = null;
+    ScrollTrigger.create({
+        trigger: "#contacto",
+        start: "top 80%",
+        onEnter: () => {
+            if (vacuumStarted || !window._matterCharBodies) return;
+            // Arrancar a escuchar idle
+            resetIdleTimer();
+            window.addEventListener("scroll", resetIdleTimer);
+        }
+    });
+
+    function resetIdleTimer() {
+        if (vacuumStarted) return;
+        clearTimeout(scrollIdleTimer);
+        scrollIdleTimer = setTimeout(() => {
+            if (vacuumStarted) return;
+            vacuumStarted = true;
+            window.removeEventListener("scroll", resetIdleTimer);
+            startVacuum();
+        }, 3000);
     }
 
-  })
-  .catch(error => {
-    result.innerHTML = "Error de conexión";
-    result.style.color = "red";
-  });
-});
+    function startVacuum() {
+        const guy = document.getElementById("vacuum-guy");
+        const Body = window._matterBody;
+        const World = window._matterWorld_ref;
+        const world = window._matterWorld;
+        const bodies = window._matterCharBodies;
+
+        const arm = document.getElementById("vacuum-arm");
+
+
+        // Posición del bichito en pantalla
+        const guyRect = guy.getBoundingClientRect();
+        const targetX = guyRect.left + guyRect.width / 2;
+        const targetY = guyRect.top + guyRect.height / 2;
+
+        // Encontrar el ASCII más cercano
+        function findNearest() {
+            let nearest = null;
+            let minDist = Infinity;
+            for (const body of bodies) {
+                const dx = targetX - body.position.x;
+                const dy = targetY - body.position.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < minDist) { minDist = dist; nearest = body; }
+            }
+            return nearest;
+        }
+
+        // El bracito apunta hacia el ASCII más cercano
+        let currentArmAngle = 0;
+        function aimArm() {
+            const nearest = findNearest();
+            if (!nearest) return;
+            const dx = nearest.position.x - targetX;
+            const dy = nearest.position.y - targetY;
+            const angle = Math.atan2(dy, dx) * (180 / Math.PI);
+            // Suavizar el movimiento del brazo
+            currentArmAngle += (angle - currentArmAngle) * 0.1;
+            gsap.set(arm, { rotation: currentArmAngle });
+        }
+
+        // Aspirar: atraer de a uno, el más cercano con más fuerza
+        function vacuum() {
+            aimArm();
+
+            const nearest = findNearest();
+
+            for (let i = bodies.length - 1; i >= 0; i--) {
+                const body = bodies[i];
+                const dx = targetX - body.position.x;
+                const dy = targetY - body.position.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                if (dist < 15) {
+                    World.remove(world, body);
+                    bodies.splice(i, 1);
+                    continue;
+                }
+
+                // El más cercano se atrae con mucha fuerza (imán)
+                // Los demás apenas se mueven (esperan su turno)
+                const isTarget = (body === nearest);
+                const force = isTarget
+                    ? 0.002 / Math.max(dist / 200, 0.2)
+                    : 0.00005;
+
+                Body.applyForce(body, body.position, {
+                    x: (dx / dist) * force,
+                    y: (dy / dist) * force,
+                });
+            }
+
+            if (bodies.length > 0) {
+                requestAnimationFrame(vacuum);
+            } else {
+                gsap.to(arm, { rotation: 0, duration: 0.5 });
+            }
+        }
+        vacuum();
+    }
+
+    // ========== ASCII IMPACT CON MATTER.JS ==========
+    function startAsciiImpact() {
+        const canvas = document.getElementById("rain-canvas");
+        canvas.style.display = "block";
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const ctx = canvas.getContext("2d");
+
+        const { Engine, World, Bodies, Body, Runner } = Matter;
+        const engine = Engine.create({ gravity: { x: 0, y: 0.5 } });
+        const world = engine.world;
+
+        // Exponer para limpiar/agregar bodies después
+        window._matterEngine = engine;
+        window._matterWorld = world;
+        window._matterBodies = Bodies;
+        window._matterWorld_ref = World;
+        window._matterBody = Body;
+        window._matterRunnerModule = Runner;
+
+        const W = canvas.width;
+        const H = canvas.height;
+        const nozzleLen = H * 0.05; // 5dvh de largo la línea/boquilla
+
+        // Piso para que se acumulen
+        const ground = Bodies.rectangle(W / 2, H + 25, W * 2, 50, { isStatic: true });
+        World.add(world, ground);
+
+        // Cartel en el centro (rectángulo estático donde rebotan)
+        const mask = document.getElementById("ascii-mask");
+        const rect = mask.getBoundingClientRect();
+        const signBody = Bodies.rectangle(
+            rect.left + rect.width / 2,
+            rect.top + rect.height / 2,
+            rect.width + 20,
+            rect.height + 10,
+            { isStatic: true, restitution: 0.8 }
+        );
+        World.add(world, signBody);
+
+        const chars = ["*", "#", "@", "!", "~", "^", "&", "%", "$", "+", "=", "?", "♪", "♫", "✿", "★", "◉", "◕", "♥", "☆", "✧", "づ", "☛", "ᵔ", "ᗜ", "ʕ", "ʔ"];
+        const bodies = [];
+        window._matterCharBodies = bodies;
+
+        // Dos boquillas en las esquinas inferiores
+        // Izquierda: desde (0, H) en diagonal 45° hacia arriba-derecha
+        // Derecha: desde (W, H) en diagonal 45° hacia arriba-izquierda
+        // Apuntar directo al centro del cartel
+        const targetX = rect.left + rect.width / 2;
+        const targetY = rect.top + rect.height / 2;
+        const angleL = Math.atan2(targetY - H, targetX - 0);       // desde esq inf-izq
+        const angleR = Math.atan2(targetY - H, targetX - W);       // desde esq inf-der
+
+        const nozzles = [
+            {
+                x: 0, y: H,
+                endX: nozzleLen * Math.cos(angleL),
+                endY: H + nozzleLen * Math.sin(angleL),
+                angle: angleL,
+            },
+            {
+                x: W, y: H,
+                endX: W + nozzleLen * Math.cos(angleR),
+                endY: H + nozzleLen * Math.sin(angleR),
+                angle: angleR,
+            },
+        ];
+
+        let spawnCount = 0;
+        const maxSpawns = 70;
+        const spawnInterval = setInterval(() => {
+            // Progreso de 0 a 1 (arranca full, termina suave)
+            const progress = spawnCount / maxSpawns;
+            // Velocidad: arranca a 35-50, baja a 12-20
+            const speedBase = 35 - progress * 23;
+            const speedRange = 15 - progress * 7;
+            // Cantidad por ráfaga: arranca 10, baja a 3
+            const perBurst = Math.max(3, Math.round(10 - progress * 7));
+            // Spread: arranca concentrado, se abre un poco
+            const spreadRange = 0.1 + progress * 0.15;
+
+            for (const nozzle of nozzles) {
+                for (let i = 0; i < perBurst; i++) {
+                    const t = Math.random();
+                    const sx = nozzle.x + t * (nozzle.endX - nozzle.x);
+                    const sy = nozzle.y + t * (nozzle.endY - nozzle.y);
+
+                    const spread = (Math.random() - 0.5) * spreadRange;
+                    const speed = speedBase + Math.random() * speedRange;
+                    const size = 3 + Math.random() * 5;
+
+                    const body = Bodies.circle(sx, sy, size, {
+                        restitution: 0.5,
+                        friction: 0.1,
+                        frictionAir: 0.001,
+                        density: 0.002,
+                        label: chars[Math.floor(Math.random() * chars.length)],
+                    });
+                    Body.setVelocity(body, {
+                        x: Math.cos(nozzle.angle + spread) * speed,
+                        y: Math.sin(nozzle.angle + spread) * speed,
+                    });
+                    bodies.push(body);
+                    World.add(world, body);
+                }
+            }
+            spawnCount++;
+            if (spawnCount > maxSpawns) clearInterval(spawnInterval);
+        }, 60);
+
+        const runner = Runner.create();
+        Runner.run(runner, engine);
+        window._matterRunner = runner;
+        window._matterSpawnInterval = spawnInterval;
+
+        let renderStopped = false;
+        window._stopRender = () => { renderStopped = true; };
+
+        function render() {
+            if (renderStopped) return;
+            ctx.clearRect(0, 0, W, H);
+
+            // Dibujar caracteres
+            ctx.font = "14px monospace";
+            ctx.fillStyle = "#365314";
+            for (const body of bodies) {
+                ctx.save();
+                ctx.translate(body.position.x, body.position.y);
+                ctx.rotate(body.angle);
+                ctx.fillText(body.label, -4, 4);
+                ctx.restore();
+            }
+            requestAnimationFrame(render);
+        }
+        render();
+    }
+
+    // Limpieza total del mundo matter.js
+    function cleanupMatter() {
+        if (window._matterSpawnInterval) clearInterval(window._matterSpawnInterval);
+        if (window._stopRender) window._stopRender();
+        if (window._matterRunner && window._matterRunnerModule) {
+            window._matterRunnerModule.stop(window._matterRunner);
+        }
+        if (window._matterEngine) {
+            Matter.World.clear(window._matterEngine.world, false);
+            Matter.Engine.clear(window._matterEngine);
+        }
+        window._matterEngine = null;
+        window._matterWorld = null;
+        window._matterCharBodies = null;
+        window._matterRunner = null;
+        window._stopRender = null;
+        window._matterSpawnInterval = null;
+
+        const canvas = document.getElementById("rain-canvas");
+        if (canvas) {
+            canvas.style.display = "none";
+            const ctx = canvas.getContext("2d");
+            ctx && ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+    }
+
+    // ========== FORMULARIO ==========
+    const form = document.getElementById("contactForm");
+    const result = document.getElementById("result");
+
+    form.addEventListener("submit", function(e) {
+        e.preventDefault();
+        const formData = new FormData(form);
+        result.innerHTML = "Enviando...";
+
+        fetch("https://api.web3forms.com/submit", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                result.innerHTML = "Mensaje enviado correctamente";
+                form.reset();
+            } else {
+                result.innerHTML = "Error al enviar el mensaje";
+            }
+        })
+        .catch(error => {
+            result.innerHTML = "Error de conexión";
+            result.style.color = "red";
+        });
+    });
 </script>
 
 </body>
 </html>
-
-
