@@ -157,6 +157,12 @@
         #ascii-message.blink-smooth {
             animation: argentina-fade 3s ease-in-out infinite alternate;
         }
+        @media (min-width: 768px) {
+            #mobile-menu {
+                height: auto !important;
+                overflow: visible !important;
+            }
+        }
     </style>
 </head>
 <body class="bg-white text-gray-900 font-sans">
@@ -187,7 +193,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <span id="menu-icon">☰</span>
             </button>
         </div>
-        <ul id="mobile-menu" class="hidden md:flex flex-col md:flex-row items-center md:justify-between gap-1 py-0 md:py-4 md:px-2">
+        <ul id="mobile-menu" class="flex flex-col md:flex-row items-center md:justify-between gap-1 py-0 md:py-4 md:px-2 overflow-hidden" style="height:0;">
             <li class="ps-3 md:ps-0"><a href="https://nohagasnada.danielaregert.com.ar/" class="block text-white py-2 md:py-0 hover:underline">Hoy no hagas nada</a></li>
             <li class="ps-3 md:ps-0"><a href="https://divinodivino.com.ar/" class="block text-white py-2 md:py-0 hover:underline">DIVINO DIVINO</a></li>
             <li class="ps-3 md:ps-0"><a href="./contacto.html" class="block text-white py-2 md:py-0 hover:underline">Contacto</a></li>
@@ -597,12 +603,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     const menuToggle = document.getElementById('menu-toggle');
     const menuIcon = document.getElementById('menu-icon');
     const mobileMenu = document.getElementById('mobile-menu');
+    let menuOpen = false;
 
     menuToggle.addEventListener('click', () => {
-        const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
-        mobileMenu.classList.toggle('hidden');
-        menuToggle.setAttribute('aria-expanded', !expanded);
-        menuIcon.textContent = expanded ? '☰' : '✕';
+        menuOpen = !menuOpen;
+        menuToggle.setAttribute('aria-expanded', menuOpen);
+        menuIcon.textContent = menuOpen ? '✕' : '☰';
+
+        if (menuOpen) {
+            mobileMenu.style.height = "auto";
+            const h = mobileMenu.offsetHeight;
+            mobileMenu.style.height = "0px";
+            mobileMenu.offsetHeight;
+            gsap.to(mobileMenu, { height: h, duration: 0.5, ease: "power2.out" });
+        } else {
+            gsap.to(mobileMenu, {
+                height: 0,
+                duration: 0.4,
+                ease: "power2.in",
+                onComplete: () => { mobileMenu.style.height = "0px"; }
+            });
+        }
     });
 </script>
 
