@@ -142,11 +142,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <!-- Nav fijo -->
     <nav class="fixed top-0 w-full z-50">
-        <ul class="flex justify-between space-x-4 px-2">
-            <li><a href="https://nohagasnada.danielaregert.com.ar/" class="text-lime-900 mt-5 me-5">Hoy no hagas nada</a></li>
-            <li><a href="https://divinodivino.com.ar/" class="text-lime-900 mt-5 me-5">DIVINO DIVINO</a></li>
-            <li><a href="https://danielaregert.com.ar/#contacto" class="text-lime-900 mt-5 me-5">Contacto</a></li>
-            
+        <div class="flex justify-center md:hidden py-3">
+            <button id="menu-toggle" class="text-lime-900 text-3xl leading-none focus:outline-none" aria-label="Menú" aria-expanded="false">
+                <span id="menu-icon">☰</span>
+            </button>
+        </div>
+        <ul id="mobile-menu" class="hidden md:flex flex-col md:flex-row items-center md:justify-between gap-1 py-0 md:py-4 md:px-2">
+            <li><a href="https://nohagasnada.danielaregert.com.ar/" class="block text-lime-900 py-2 md:py-0 hover:underline">Hoy no hagas nada</a></li>
+            <li><a href="https://divinodivino.com.ar/" class="block text-lime-900 py-2 md:py-0 hover:underline">DIVINO DIVINO</a></li>
+            <li><a href="https://danielaregert.com.ar/#contacto" class="block text-lime-900 py-2 md:py-0 hover:underline">Contacto</a></li>
         </ul>
     </nav>
 
@@ -164,40 +168,39 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <canvas id="rain-canvas" class="fixed inset-0 z-30 pointer-events-none" style="display:none;"></canvas>
     <!-- ASCII art que se revela como lámina -->
 
-    <!-- ========== PANTALLA 1 - scroll vertical normal ========== -->
-    <section class="w-screen h-dvh bg-white flex items-center justify-center md:px-[1rem] md:py-[1rem]">
-        <div class="w-full h-full bg-gradient-to-br from-pink-100 to-violet-50 rounded-2xl shadow-sm flex flex-col items-center justify-center text-center p-6">
-            <div class="container-a">
-                <section class="animation">
-                    <div class="first text-lime-900"><div>ʕʘ̅͜ʘ̅ʔ✿ʕ ◕ᴥ◕ ʔ</div></div>
-                    <div class="second text-lime-900"><div>⊂(￣(ｴ)￣)⊃</div></div>
-                    <div class="third text-lime-900"><div>*ʕ◉ᴥ◉ʔ*</div></div>
-                </section>
-            </div>
-            <div class="text-6xl font-bold mb-4 text-lime-900">Hola</div>
-            <p class="text-base text-gray-700 w-full sm:w-80 text-lime-900">soy Daniela Regert(≖ᴗ≖)</p>
-            <p class="text-base text-gray-700 w-full sm:w-80 text-lime-900">Bienvenid@ a mi espacio en internet (˶ˆᗜˆ˵)</p>
-        </div>
-    </section>
-
     <!-- Cartel de los glaciares - fixed al viewport -->
     <div id="ascii-mask" class="fixed z-40 pointer-events-none" style="left:50%; top:50%; transform:translate(-50%,-50%); overflow:hidden; height:0px;">
         <pre id="ascii-message" class="text-lime-900" style="font-size:clamp(4px,1.1vw,10px); line-height:1.1; font-family:monospace; text-align:center; white-space:pre; margin:0;">
- ,---.    ,---.  ,--.,--.   ,--.,------.,--.   ,--. ,-----.  ,---.
-'   .-'  /  O  \ |  | \  `.'  / |  .---'|   `.'   |'  .-.  ''   .-'
-`.  `-. |  .-.  ||  |  \     /  |  `--, |  |'.'|  ||  | |  |`.  `-.
-.-'    ||  | |  ||  '--.\   /   |  `---.|  |   |  |'  '-'  '.-'    |
-`-----' `--' `--'`-----' `-'    `------'`--'   `--' `-----' `-----'
-,--.    ,-----.  ,---.
-|  |   '  .-.  ''   .-'
-|  |   |  | |  |`.  `-.
-|  '--.'  '-'  '.-'    |
-`-----' `-----' `-----'
- ,----.   ,--.     ,---.   ,-----.,--.  ,---.  ,------. ,------. ,---.
-'  .-./   |  |    /  O  \ '  .--./|  | /  O  \ |  .--. '|  .---''   .-'
-|  | .---.|  |   |  .-.  ||  |    |  ||  .-.  ||  '--'.'|  `--, `.  `-.
-'  '--'  ||  '--.|  | |  |'  '--'\|  ||  | |  ||  |\  \ |  `---..-'    |
- `------' `-----'`--' `--' `-----'`--'`--' `--'`--' '--'`------'`-----'
+░██    ░██                                                                                         
+░██    ░██                                                                                         
+░██    ░██  ░██████   ░█████████████   ░███████   ░███████                                         
+░██    ░██       ░██  ░██   ░██   ░██ ░██    ░██ ░██                                               
+ ░██  ░██   ░███████  ░██   ░██   ░██ ░██    ░██  ░███████                                         
+  ░██░██   ░██   ░██  ░██   ░██   ░██ ░██    ░██        ░██                                        
+   ░███     ░█████░██ ░██   ░██   ░██  ░███████   ░███████                                         
+                                                                                                   
+                                                                                                   
+                                                                                                   
+   ░███    ░█████████    ░██████  ░██████████ ░███    ░██ ░██████████░██████░███    ░██    ░███    
+  ░██░██   ░██     ░██  ░██   ░██ ░██         ░████   ░██     ░██      ░██  ░████   ░██   ░██░██   
+ ░██  ░██  ░██     ░██ ░██        ░██         ░██░██  ░██     ░██      ░██  ░██░██  ░██  ░██  ░██  
+░█████████ ░█████████  ░██  █████ ░█████████  ░██ ░██ ░██     ░██      ░██  ░██ ░██ ░██ ░█████████ 
+░██    ░██ ░██   ░██   ░██     ██ ░██         ░██  ░██░██     ░██      ░██  ░██  ░██░██ ░██    ░██ 
+░██    ░██ ░██    ░██   ░██  ░███ ░██         ░██   ░████     ░██      ░██  ░██   ░████ ░██    ░██ 
+░██    ░██ ░██     ░██   ░█████░█ ░██████████ ░██    ░███     ░██    ░██████░██    ░███ ░██    ░██ 
+                                                                                                   
+                                                                                                   
+                                                                                                   
+░██ ░██ ░██                                                                                        
+░██ ░██ ░██                                                                                        
+░██ ░██ ░██                                                                                        
+░██ ░██ ░██                                                                                        
+░██ ░██ ░██                                                                                        
+                                                                                                   
+░██ ░██ ░██                                                                                        
+                                                                                                   
+                                                                                                   
+                                                                                                   
 </pre>
     </div>
 
@@ -206,11 +209,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="w-full h-full bg-gradient-to-br from-pink-100 to-violet-50 rounded-2xl shadow-sm flex flex-col items-center justify-center text-center p-6">
             <div id="stage-text-mask" class="overflow-hidden">
                 <div id="stage-text">
-                    <div class="animate-bounce text-6xl font-bold mb-4 text-lime-900">Este sitio</div>
-                    <p class="text-base text-gray-700 w-full sm:w-80 text-lime-900">está en construcción</p>
-                    <p class="text-base text-gray-700 w-full sm:w-80 text-lime-900">(づ￣ ³￣)☛</p>
-                    <p class="text-base text-gray-700 w-full sm:w-80 text-lime-900">Powered by <span class="font-bold"><a href="https://www.linkedin.com/in/danielaregert/" title="Visit my linkedin profile"> Argentinian Devs</a></span></p>
-                    <p class="text-base text-gray-700 w-full sm:w-80 text-lime-900">Quiero invitarte a nuestra agencia creativa <span class="font-bold"><a href="https://divinodivino.com.ar/" title="Conocé la agencia creativa que tenemos con mi socia Bel"> DIVINO DIVINO</a></span></p>
+                    <div class="container-a">
+                        <section class="animation">
+                            <div class="first text-lime-900"><div>ʕʘ̅͜ʘ̅ʔ✿ʕ ◕ᴥ◕ ʔ</div></div>
+                            <div class="second text-lime-900"><div>⊂(￣(ｴ)￣)⊃</div></div>
+                            <div class="third text-lime-900"><div>*ʕ◉ᴥ◉ʔ*</div></div>
+                        </section>
+                    </div>
+                    <div class="text-6xl font-bold mb-4 text-lime-900">Hola</div>
+                    <p class="text-base text-gray-700 w-full sm:w-80 text-lime-900">soy Daniela Regert(≖ᴗ≖)</p>
+                    <p class="text-base text-gray-700 w-full sm:w-80 text-lime-900">Bienvenid@ a mi espacio en internet (˶ˆᗜˆ˵)</p>
                 </div>
             </div>
         </div>
@@ -221,7 +229,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <section id="contacto" class="w-screen h-dvh bg-white flex flex-col items-center justify-center md:px-[1rem] md:pb-[1rem]">
         <div class="w-full h-full bg-gradient-to-br from-pink-100 to-purple-100 rounded-2xl shadow-sm flex flex-col items-center justify-center text-center p-6">
             <h2 id="vacuum-guy" class="text-2xl text-gray-700 w-full sm:w-80 pb-5 text-lime-900">꒰ •ᴗ•｡꒱<span id="vacuum-arm" class="inline-block origin-bottom-left">۶</span></h2>
-            <p class="text-lg text-gray-700 w-full sm:w-80 text-lime-900">¿Querés hacer tu <span class="font-bold">web</span> o <span class="font-bold">automatizar procesos</span> en tu empresa? Escribime!</p>
+            <p class="text-lg text-gray-700 w-full sm:w-80 text-lime-900">¿Querés que <span class="font-bold">trabajemos juntos</span>? Escribíme</p>
             <a class="hidden bg-lime-900 text-white px-6 py-3 rounded-full " href="https://landing.infogreenpeace.org/accion-colectiva-por-lo-glaciares?fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGn94Xf1JPM9KUjoqJAOCg0wNhW4Pj3r-Gs0ev6WtWpgIpRtO8oaSlMPpiBTC0_aem_EpIsETCp0opD2kdApNCgvg">Sumate a la demanda</a>
             <p id="result" class="text-lime-800 pb-5"></p>
             <form id="contactForm"  class="flex flex-col gap-4 w-full max-w-lg mx-auto p-8 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 outline-2 outline-offset-2 outline-dashed outline-lime-700">
@@ -306,7 +314,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     // --- FASE 0: el texto se desliza hacia arriba y se esconde (como la animación de la sección 1) ---
     walkersTl.to("#stage-text", {
-        yPercent: -100,
+        yPercent: -130,
         duration: 0.5,
         ease: "power2.in",
     });
@@ -726,6 +734,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             result.innerHTML = "Error de conexión";
             result.style.color = "red";
         });
+    });
+</script>
+<script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const menuIcon = document.getElementById('menu-icon');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    menuToggle.addEventListener('click', () => {
+        const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+        mobileMenu.classList.toggle('hidden');
+        menuToggle.setAttribute('aria-expanded', !expanded);
+        menuIcon.textContent = expanded ? '☰' : '✕';
     });
 </script>
 
