@@ -550,13 +550,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
             // Dibujar caracteres
             ctx.font = "14px monospace";
-            for (const body of bodies) {
-                ctx.save();
-                ctx.translate(body.position.x, body.position.y);
-                ctx.rotate(body.angle);
-                ctx.fillStyle = body.color || "#ffffff";
-                ctx.fillText(body.label, -4, 4);
-                ctx.restore();
+            for (const color of ["#ffffff", "#87ceeb"]) {
+                ctx.fillStyle = color;
+                for (const body of bodies) {
+                    if ((body.color || "#ffffff") !== color) continue;
+                    ctx.save();
+                    ctx.translate(body.position.x, body.position.y);
+                    ctx.rotate(body.angle);
+                    ctx.fillText(body.label, -4, 4);
+                    ctx.restore();
+                }
             }
             requestAnimationFrame(render);
         }
