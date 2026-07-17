@@ -147,8 +147,15 @@
             0%, 100% { color: #ffffff; }
             50%      { color: #87ceeb; }
         }
-        #ascii-message {
+        @keyframes argentina-fade {
+            0%, 100% { color: #ffffff; }
+            50%      { color: #87ceeb; }
+        }
+        #ascii-message.blink-sharp {
             animation: argentina-blink 0.2s step-end infinite;
+        }
+        #ascii-message.blink-smooth {
+            animation: argentina-fade 3s ease-in-out infinite alternate;
         }
     </style>
 </head>
@@ -205,7 +212,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <!-- Cartel de los glaciares - fixed al viewport -->
     <div id="ascii-mask" class="fixed z-40 pointer-events-none" style="left:50%; top:50%; transform:translate(-50%,-50%); overflow:hidden; height:0px;">
-        <pre id="ascii-message" class="text-white" style="font-size:clamp(4px,1.1vw,10px); line-height:1.1; font-family:monospace; text-align:center; white-space:pre; margin:0;">
+        <pre id="ascii-message" class="blink-sharp text-white" style="font-size:clamp(4px,1.1vw,10px); line-height:1.1; font-family:monospace; text-align:center; white-space:pre; margin:0;">
 ░██    ░██                                                                                         
 ░██    ░██                                                                                         
 ░██    ░██  ░██████   ░█████████████   ░███████   ░███████                                         
@@ -432,6 +439,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         const W = canvas.width;
         const H = canvas.height;
+
+        setTimeout(() => {
+            const msg = document.getElementById("ascii-message");
+            msg.classList.remove("blink-sharp");
+            msg.classList.add("blink-smooth");
+        }, 2000);
+
         const nozzleLen = H * 0.05; // 5dvh de largo la línea/boquilla
 
         // Piso para que se acumulen
@@ -451,6 +465,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         World.add(world, signBody);
 
         const chars = ["*", "#", "@", "!", "~", "^", "&", "%", "$", "+", "=", "?", "♪", "♫", "✿", "★", "◉", "◕", "♥", "☆", "✧", "づ", "☛", "ᵔ", "ᗜ", "ʕ", "ʔ"];
+        const charColors = ["#ffffff", "#87ceeb"];
         const bodies = [];
         window._matterCharBodies = bodies;
 
@@ -479,7 +494,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         ];
 
         let spawnCount = 0;
-        const maxSpawns = 70;
+        const maxSpawns = 140;
         const spawnInterval = setInterval(() => {
             // Progreso de 0 a 1 (arranca full, termina suave)
             const progress = spawnCount / maxSpawns;
@@ -512,6 +527,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         x: Math.cos(nozzle.angle + spread) * speed,
                         y: Math.sin(nozzle.angle + spread) * speed,
                     });
+                    body.color = charColors[Math.floor(Math.random() * charColors.length)];
                     bodies.push(body);
                     World.add(world, body);
                 }
@@ -534,11 +550,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
             // Dibujar caracteres
             ctx.font = "14px monospace";
-            ctx.fillStyle = "#ffffff";
             for (const body of bodies) {
                 ctx.save();
                 ctx.translate(body.position.x, body.position.y);
                 ctx.rotate(body.angle);
+                ctx.fillStyle = body.color || "#ffffff";
                 ctx.fillText(body.label, -4, 4);
                 ctx.restore();
             }
