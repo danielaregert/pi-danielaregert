@@ -143,6 +143,13 @@
             position: relative;
             z-index: 10;
         }
+        @keyframes argentina-blink {
+            0%, 100% { color: #ffffff; }
+            50%      { color: #87ceeb; }
+        }
+        #ascii-message {
+            animation: argentina-blink 0.2s step-end infinite;
+        }
     </style>
 </head>
 <body class="bg-white text-gray-900 font-sans">
@@ -174,9 +181,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </button>
         </div>
         <ul id="mobile-menu" class="hidden md:flex flex-col md:flex-row items-center md:justify-between gap-1 py-0 md:py-4 md:px-2">
-            <li><a href="https://nohagasnada.danielaregert.com.ar/" class="block text-white py-2 md:py-0 hover:underline">Hoy no hagas nada</a></li>
-            <li><a href="https://divinodivino.com.ar/" class="block text-white py-2 md:py-0 hover:underline">DIVINO DIVINO</a></li>
-            <li><a href="https://danielaregert.com.ar/#contacto" class="block text-white py-2 md:py-0 hover:underline">Contacto</a></li>
+            <li class="ps-3 md:ps-0"><a href="https://nohagasnada.danielaregert.com.ar/" class="block text-white py-2 md:py-0 hover:underline">Hoy no hagas nada</a></li>
+            <li class="ps-3 md:ps-0"><a href="https://divinodivino.com.ar/" class="block text-white py-2 md:py-0 hover:underline">DIVINO DIVINO</a></li>
+            <li class="ps-3 md:ps-0"><a href="./contacto.html" class="block text-white py-2 md:py-0 hover:underline">Contacto</a></li>
         </ul>
     </nav>
 
@@ -252,54 +259,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
     </section>
     
-
-    <!-- ========== PANTALLA 3 - Contacto (scroll vertical normal) ========== -->
-    <section id="contacto" class="w-screen h-dvh bg-white flex flex-col items-center justify-center md:px-[1rem] md:pb-[1rem]">
-        <div class="pixelated-bg w-full h-full rounded-2xl shadow-sm flex flex-col items-center justify-center text-center p-6">
-            <h2 id="vacuum-guy" class="text-2xl w-full sm:w-80 pb-5 text-white">꒰ •ᴗ•｡꒱<span id="vacuum-arm" class="inline-block origin-bottom-left">۶</span></h2>
-            <p class="text-lg w-full sm:w-80 text-white">¿Querés que <span class="font-bold">trabajemos juntos</span>? Escribíme</p>
-            <a class="hidden bg-white text-white px-6 py-3 rounded-full " href="https://landing.infogreenpeace.org/accion-colectiva-por-lo-glaciares?fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGn94Xf1JPM9KUjoqJAOCg0wNhW4Pj3r-Gs0ev6WtWpgIpRtO8oaSlMPpiBTC0_aem_EpIsETCp0opD2kdApNCgvg">Sumate a la demanda</a>
-            <p id="result" class="text-white pb-5"></p>
-            <form id="contactForm"  class="flex flex-col gap-4 w-full max-w-lg mx-auto p-8 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 outline-2 outline-offset-2 outline-dashed outline-white">
-
-                <input type="hidden" name="access_key" value="28a580e8-9dd5-4114-8a49-e1db9866a752">
-
-                <input
-                    type="text"
-                    name="name"
-                    placeholder="Nombre"
-                    required
-                    class="bg-white/5 border border-white/10 rounded-xl px-5 py-3 placeholder-white/70 transition-all duration-300 outline-1 outline-offset-2 outline-dashed outline-white"
-                >
-
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    required
-                    class="bg-white/5 border border-white/10 rounded-xl px-5 py-3 placeholder-white/70 focus:bg-white/10 transition-all duration-300 outline-1 outline-offset-2 outline-dashed outline-white"
-                >
-
-                <textarea
-                    name="message"
-                    placeholder="Mensaje"
-                    required
-                    rows="5"
-                    class="bg-white/5 border border-white/10 rounded-xl px-5 py-3 placeholder-white/70 focus:bg-white/10 transition-all duration-300 resize-none outline-1 outline-offset-2 outline-dashed outline-white"
-                ></textarea>
-
-                <input type="checkbox" name="botcheck" class="hidden" style="display:none;">
-
-                <button
-                    type="submit"
-                    class="text-black px-6 py-3 rounded-full bg-white"
-                >
-                    Enviar
-                </button>
-
-            </form>
-        </div>
-    </section>
 
     <!-- Footer fijo -->
     <footer class="fixed bottom-0 w-full z-50" style="background: #ffffff; background: linear-gradient(0deg,rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);">
@@ -449,142 +408,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     // --- Mucho scroll mientras los caracteres siguen volando ---
 
-    // --- Después el cartel se recoge y desaparece ---
-    walkersTl.to("#ascii-mask", {
-        height: 0,
-        duration: 0.8,
-        ease: "power2.in",
-    }, "meet+=10");
-
     // --- Los ASCII quedan acumulados, no se limpian ---
-
-    // --- Cuando el formulario entra en vista, agregar body para que reboten contra él ---
-    let formBodyAdded = false;
-    ScrollTrigger.create({
-        trigger: "#contacto",
-        start: "top bottom",
-        onEnter: () => {
-            if (formBodyAdded || !window._matterWorld) return;
-            formBodyAdded = true;
-            const formEl = document.getElementById("contactForm");
-            const r = formEl.getBoundingClientRect();
-            const formBody = window._matterBodies.rectangle(
-                r.left + r.width / 2,
-                r.top + r.height / 2,
-                r.width + 20,
-                r.height + 20,
-                { isStatic: true, restitution: 0.6, label: "form" }
-            );
-            window._matterWorld_ref.add(window._matterWorld, formBody);
-            window._matterFormBody = formBody;
-        }
-    });
-
-    // --- Aspiradora: ꒰ •ᴗ•｡꒱۶ aspira cuando el usuario deja de scrollear 3s en la placa 3 ---
-    let vacuumStarted = false;
-    let scrollIdleTimer = null;
-    ScrollTrigger.create({
-        trigger: "#contacto",
-        start: "top 80%",
-        onEnter: () => {
-            if (vacuumStarted || !window._matterCharBodies) return;
-            // Arrancar a escuchar idle
-            resetIdleTimer();
-            window.addEventListener("scroll", resetIdleTimer);
-        }
-    });
-
-    function resetIdleTimer() {
-        if (vacuumStarted) return;
-        clearTimeout(scrollIdleTimer);
-        scrollIdleTimer = setTimeout(() => {
-            if (vacuumStarted) return;
-            vacuumStarted = true;
-            window.removeEventListener("scroll", resetIdleTimer);
-            startVacuum();
-        }, 3000);
-    }
-
-    function startVacuum() {
-        const guy = document.getElementById("vacuum-guy");
-        const Body = window._matterBody;
-        const World = window._matterWorld_ref;
-        const world = window._matterWorld;
-        const bodies = window._matterCharBodies;
-
-        const arm = document.getElementById("vacuum-arm");
-
-
-        // Posición del bichito en pantalla
-        const guyRect = guy.getBoundingClientRect();
-        const targetX = guyRect.left + guyRect.width / 2;
-        const targetY = guyRect.top + guyRect.height / 2;
-
-        // Encontrar el ASCII más cercano
-        function findNearest() {
-            let nearest = null;
-            let minDist = Infinity;
-            for (const body of bodies) {
-                const dx = targetX - body.position.x;
-                const dy = targetY - body.position.y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < minDist) { minDist = dist; nearest = body; }
-            }
-            return nearest;
-        }
-
-        // El bracito apunta hacia el ASCII más cercano
-        let currentArmAngle = 0;
-        function aimArm() {
-            const nearest = findNearest();
-            if (!nearest) return;
-            const dx = nearest.position.x - targetX;
-            const dy = nearest.position.y - targetY;
-            const angle = Math.atan2(dy, dx) * (180 / Math.PI);
-            // Suavizar el movimiento del brazo
-            currentArmAngle += (angle - currentArmAngle) * 0.1;
-            gsap.set(arm, { rotation: currentArmAngle });
-        }
-
-        // Aspirar: atraer de a uno, el más cercano con más fuerza
-        function vacuum() {
-            aimArm();
-
-            const nearest = findNearest();
-
-            for (let i = bodies.length - 1; i >= 0; i--) {
-                const body = bodies[i];
-                const dx = targetX - body.position.x;
-                const dy = targetY - body.position.y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-
-                if (dist < 15) {
-                    World.remove(world, body);
-                    bodies.splice(i, 1);
-                    continue;
-                }
-
-                // El más cercano se atrae con mucha fuerza (imán)
-                // Los demás apenas se mueven (esperan su turno)
-                const isTarget = (body === nearest);
-                const force = isTarget
-                    ? 0.002 / Math.max(dist / 200, 0.2)
-                    : 0.00005;
-
-                Body.applyForce(body, body.position, {
-                    x: (dx / dist) * force,
-                    y: (dy / dist) * force,
-                });
-            }
-
-            if (bodies.length > 0) {
-                requestAnimationFrame(vacuum);
-            } else {
-                gsap.to(arm, { rotation: 0, duration: 0.5 });
-            }
-        }
-        vacuum();
-    }
 
     // ========== ASCII IMPACT CON MATTER.JS ==========
     function startAsciiImpact() {
@@ -748,35 +572,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             ctx && ctx.clearRect(0, 0, canvas.width, canvas.height);
         }
     }
-
-    // ========== FORMULARIO ==========
-    const form = document.getElementById("contactForm");
-    const result = document.getElementById("result");
-
-    form.addEventListener("submit", function(e) {
-        e.preventDefault();
-        const formData = new FormData(form);
-        result.innerHTML = "Enviando...";
-
-        fetch("https://api.web3forms.com/submit", {
-            method: "POST",
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                result.innerHTML = "Mensaje enviado correctamente";
-                form.reset();
-            } else {
-                result.innerHTML = "Error al enviar el mensaje";
-            }
-        })
-        .catch(error => {
-            result.innerHTML = "Error de conexión";
-            result.style.color = "red";
-        });
-    });
 </script>
+
 <script>
     const menuToggle = document.getElementById('menu-toggle');
     const menuIcon = document.getElementById('menu-icon');

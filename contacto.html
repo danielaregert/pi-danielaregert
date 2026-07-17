@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Contacto | Daniela Regert</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+<meta name="description" content="Contactá a Daniela Regert, full stack web developer">
+<meta property="og:image" content="https://danielaregert.com.ar/img/dani-meta-thumbnail.png" />
+<link rel="icon" type="image/x-icon" href="https://danielaregert.com.ar/img/dani-favicon.ico">
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="http://danielaregert.com.ar/img/dani-meta-thumbnail.png" />
+<script type="importmap">
+{
+    "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+    }
+}
+</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet" />
+<link rel="icon" type="image/x-icon" href="img/dani-favicon.ico">
+
+<style>
+    html, body {
+        overflow-x: hidden;
+        margin: 0;
+    }
+
+    .pixelated-bg {
+        position: relative;
+        overflow: hidden;
+    }
+    .pixelated-bg canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+        border-radius: 1rem;
+    }
+    .pixelated-bg > * {
+        position: relative;
+        z-index: 10;
+    }
+</style>
+</head>
+
+<body class="bg-white text-gray-900 font-sans">
+
+<video id="pixel-video" autoplay muted loop playsinline style="position:fixed;opacity:0;pointer-events:none;width:1px;height:1px;top:0;left:0;">
+    <source src="./assets/hero.mp4" type="video/mp4" />
+</video>
+
+<nav class="fixed top-0 w-full z-50">
+    <div class="flex justify-center md:hidden py-3">
+        <button id="menu-toggle" class="text-white text-3xl leading-none focus:outline-none" aria-label="Menú" aria-expanded="false">
+            <span id="menu-icon">☰</span>
+        </button>
+    </div>
+    <ul id="mobile-menu" class="hidden md:flex flex-col md:flex-row items-center md:justify-between gap-1 py-0 md:py-4 md:px-2">
+        <li class="ps-3 md:ps-0"><a href="./index.html" class="block text-white py-2 md:py-0 hover:underline">Home</a></li>
+        <li class="ps-3 md:ps-0"><a href="https://divinodivino.com.ar/" class="block text-white py-2 md:py-0 hover:underline">DIVINO DIVINO</a></li>
+        <li class="ps-3 md:ps-0"><a href="./contacto.html" class="block text-white py-2 md:py-0 hover:underline">Contacto</a></li>
+    </ul>
+</nav>
+
+<section class="w-screen h-dvh bg-white flex flex-col items-center justify-center md:px-[1rem] md:pb-[1rem]">
+    <div class="pixelated-bg w-full h-full rounded-2xl shadow-sm flex flex-col items-center justify-center text-center p-6">
+        <h2 class="text-2xl w-full sm:w-80 pb-5 text-white">꒰ •ᴗ•｡꒱۶</h2>
+        <p class="text-lg w-full sm:w-80 text-white">¿Querés que <span class="font-bold">trabajemos juntos</span>? Escribíme</p>
+        <p id="result" class="text-white pb-5"></p>
+        <form id="contactForm" class="flex flex-col gap-4 w-full max-w-lg mx-auto p-8 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 outline-2 outline-offset-2 outline-dashed outline-white">
+
+            <input type="hidden" name="access_key" value="28a580e8-9dd5-4114-8a49-e1db9866a752">
+
+            <input type="text" name="name" placeholder="Nombre" required class="bg-white/5 border border-white/10 rounded-xl px-5 py-3 placeholder-white/70 transition-all duration-300 outline-1 outline-offset-2 outline-dashed outline-white">
+
+            <input type="email" name="email" placeholder="Email" required class="bg-white/5 border border-white/10 rounded-xl px-5 py-3 placeholder-white/70 focus:bg-white/10 transition-all duration-300 outline-1 outline-offset-2 outline-dashed outline-white">
+
+            <textarea name="message" placeholder="Mensaje" required rows="5" class="bg-white/5 border border-white/10 rounded-xl px-5 py-3 placeholder-white/70 focus:bg-white/10 transition-all duration-300 resize-none outline-1 outline-offset-2 outline-dashed outline-white"></textarea>
+
+            <input type="checkbox" name="botcheck" class="hidden" style="display:none;">
+
+            <button type="submit" class="text-black px-6 py-3 rounded-full bg-white">
+                Enviar
+            </button>
+        </form>
+    </div>
+</section>
+
+<footer class="fixed bottom-0 w-full z-50" style="background: linear-gradient(0deg,rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);">
+    <ul class="flex justify-center gap-2 md:justify-between">
+        <li><a href="/me-aburro.html" target="_blank" class="text-white hidden">Me aburro</a></li>
+        <li class="pb-5 pe-5">
+            <a href="https://www.linkedin.com/in/danielaregert/" class="text-white"><i class="bi bi-linkedin"></i></a>
+            <a href="https://github.com/danielaregert" class="text-white"><i class="bi bi-github"></i></a>
+            <a href="https://www.behance.net/danielaregert" class="text-white"><i class="bi bi-behance"></i></a>
+        </li>
+    </ul>
+</footer>
+
+<script>
+const form = document.getElementById("contactForm");
+const result = document.getElementById("result");
+form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    result.innerHTML = "Enviando...";
+    fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: new FormData(form)
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.success) {
+            result.innerHTML = "Mensaje enviado correctamente";
+            form.reset();
+        } else {
+            result.innerHTML = "Error al enviar el mensaje";
+        }
+    })
+    .catch(() => {
+        result.innerHTML = "Error de conexión";
+        result.style.color = "red";
+    });
+});
+</script>
+
+<script>
+const menuToggle = document.getElementById('menu-toggle');
+const menuIcon = document.getElementById('menu-icon');
+const mobileMenu = document.getElementById('mobile-menu');
+menuToggle.addEventListener('click', () => {
+    const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+    mobileMenu.classList.toggle('hidden');
+    menuToggle.setAttribute('aria-expanded', !expanded);
+    menuIcon.textContent = expanded ? '☰' : '✕';
+});
+</script>
+
+<script type="module">
+import * as THREE from "three";
+
+function initPixelatedBg(container, videoEl) {
+    const mouse = { prevX: 0.5, prevY: 0.5 };
+    const S = { grid: 100, radius: 0.1, strength: 1, relaxation: 0.94 };
+    let W = container.offsetWidth, H = container.offsetHeight;
+    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
+    camera.position.z = 1;
+
+    const texture = new THREE.VideoTexture(videoEl);
+    texture.minFilter = THREE.NearestFilter;
+    texture.magFilter = THREE.NearestFilter;
+    texture.wrapS = THREE.ClampToEdgeWrapping;
+    texture.wrapT = THREE.ClampToEdgeWrapping;
+    texture.generateMipmaps = false;
+
+    const size = S.grid;
+    const data = new Float32Array(size * size * 4);
+    for (let i = 0; i < data.length; i += 4) { data[i] = 0; data[i + 1] = 0; data[i + 2] = 0; data[i + 3] = 1; }
+    const dataTex = new THREE.DataTexture(data, size, size, THREE.RGBAFormat, THREE.FloatType);
+    dataTex.magFilter = THREE.NearestFilter;
+    dataTex.minFilter = THREE.NearestFilter;
+    dataTex.needsUpdate = true;
+
+    const material = new THREE.ShaderMaterial({
+        uniforms: { uTexture: { value: texture }, uDataTexture: { value: dataTex }, uGrid: { value: S.grid } },
+        vertexShader: `varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position,1.0);}`,
+        fragmentShader: `
+            uniform sampler2D uTexture;
+            uniform sampler2D uDataTexture;
+            uniform float uGrid;
+            varying vec2 vUv;
+            void main(){
+                vec2 pixelUv=floor(vUv*uGrid)/uGrid;
+                vec2 offset=texture2D(uDataTexture,pixelUv).rg;
+                gl_FragColor=texture2D(uTexture,pixelUv-offset*0.6);
+            }
+        `
+    });
+
+    const scene = new THREE.Scene();
+    scene.add(new THREE.Mesh(new THREE.PlaneGeometry(2,2), material));
+
+    const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
+    renderer.setSize(W, H);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    container.appendChild(renderer.domElement);
+
+    function paintTrail(fx, fy, tx, ty) {
+        const d = dataTex.image.data;
+        const sx = fx * size, sy = (1 - fy) * size, ex = tx * size, ey = (1 - ty) * size;
+        const dx = ex - sx, dy = ey - sy, dist = Math.sqrt(dx * dx + dy * dy), steps = Math.ceil(dist);
+        for (let i = 0; i <= steps; i++) {
+            const t = i / steps, x = sx + dx * t, y = sy + dy * t;
+            const R = size * S.radius, R2 = R * R;
+            for (let iy = 0; iy < size; iy++) {
+                for (let ix = 0; ix < size; ix++) {
+                    const px = ix - x, py = iy - y, d2 = px * px + py * py;
+                    if (d2 < R2) {
+                        const idx = 4 * (ix + iy * size), f = 1 - d2 / R2;
+                        d[idx] += dx * 0.002 * f * S.strength;
+                        d[idx + 1] -= dy * 0.002 * f * S.strength;
+                    }
+                }
+            }
+        }
+        dataTex.needsUpdate = true;
+    }
+
+    const isTouch = window.matchMedia("(pointer: coarse)").matches;
+    const handleMove = (cx, cy) => {
+        const r = container.getBoundingClientRect();
+        const x = (cx - r.left) / r.width, y = (cy - r.top) / r.height;
+        paintTrail(mouse.prevX, mouse.prevY, x, y);
+        mouse.prevX = x; mouse.prevY = y;
+    };
+
+    if (!isTouch) {
+        container.addEventListener("pointermove", e => handleMove(e.clientX, e.clientY));
+    } else {
+        let touching = false;
+        container.addEventListener("pointerdown", e => {
+            touching = true;
+            const r = container.getBoundingClientRect();
+            mouse.prevX = (e.clientX - r.left) / r.width;
+            mouse.prevY = (e.clientY - r.top) / r.height;
+        });
+        container.addEventListener("pointermove", e => { if (touching) handleMove(e.clientX, e.clientY); });
+        ["pointerup","pointercancel"].forEach(ev => container.addEventListener(ev, () => { touching = false; }));
+    }
+
+    window.addEventListener("resize", () => {
+        W = container.offsetWidth; H = container.offsetHeight;
+        renderer.setSize(W, H);
+    });
+
+    (function render() {
+        const d = dataTex.image.data;
+        for (let i = 0; i < d.length; i += 4) { d[i] *= S.relaxation; d[i + 1] *= S.relaxation; }
+        dataTex.needsUpdate = true;
+        renderer.render(scene, camera);
+        requestAnimationFrame(render);
+    })();
+}
+
+const video = document.getElementById("pixel-video");
+function boot() {
+    document.querySelectorAll(".pixelated-bg").forEach(c => initPixelatedBg(c, video));
+}
+if (video.readyState >= 2) boot();
+else video.addEventListener("loadeddata", boot, { once: true });
+</script>
+
+</body>
+</html>
