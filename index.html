@@ -129,15 +129,23 @@
             position: relative;
             overflow: hidden;
         }
-        .pixelated-bg canvas {
-            position: absolute;
+        .pixelated-bg-canvas {
+            position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             pointer-events: none;
             z-index: 0;
-            border-radius: 1rem;
+        }
+        .pixelated-bg canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
         }
         .pixelated-bg > * {
             position: relative;
@@ -165,7 +173,7 @@
         }
     </style>
 </head>
-<body class="bg-white text-gray-900 font-sans">
+<body class="bg-black text-gray-900 font-sans">
 
     <video id="pixel-video" autoplay muted loop playsinline style="position:fixed;opacity:0;pointer-events:none;width:1px;height:1px;top:0;left:0;">
         <source src="./assets/hero.mp4" type="video/mp4" />
@@ -253,7 +261,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
 
     <!-- ========== PANTALLA 2 - se pinea, los caminantes pasan ========== -->
-    <section id="pinned-stage" class="w-screen h-dvh bg-white flex items-center justify-center md:px-[1rem] md:py-[1rem]">
+    <section id="pinned-stage" class="w-screen h-screen flex items-center justify-center md:px-[1rem] md:py-[1rem] relative z-10">
         <div class="pixelated-bg w-full h-full rounded-2xl shadow-sm flex flex-col items-center justify-center text-center p-6">
             <div id="stage-text-mask" class="overflow-hidden">
                 <div id="stage-text">
@@ -274,7 +282,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     
 
     <!-- Footer fijo -->
-    <footer class="fixed bottom-0 w-full z-50" style="background: #ffffff; background: linear-gradient(0deg,rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);">
+    <footer class="fixed bottom-0 w-full z-50" style="background: linear-gradient(0deg,rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);">
         <ul class="flex justify-center gap-2 md:justify-between">
             <li><a href="/me-aburro.html" target="_blank" class="text-white hidden">Me aburro</a></li>
             <li class="pb-5 pe-5">
@@ -634,7 +642,7 @@ function initPixelatedBg(container, videoEl) {
     const mouse = { prevX: 0.5, prevY: 0.5 };
     const S = { grid: 100, radius: 0.1, strength: 1, relaxation: 0.94 };
 
-    let W = container.offsetWidth, H = container.offsetHeight;
+    let W = window.innerWidth, H = window.innerHeight;
     const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
     camera.position.z = 1;
 
@@ -681,7 +689,8 @@ function initPixelatedBg(container, videoEl) {
     const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
     renderer.setSize(W, H);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    container.appendChild(renderer.domElement);
+    renderer.domElement.classList.add("pixelated-bg-canvas");
+    document.body.appendChild(renderer.domElement);
 
     function paintTrail(fx, fy, tx, ty) {
         const d = dataTex.image.data;
@@ -711,8 +720,7 @@ function initPixelatedBg(container, videoEl) {
 
     const isTouch = window.matchMedia("(pointer: coarse)").matches;
     const handleMove = (cx, cy) => {
-        const r = container.getBoundingClientRect();
-        const x = (cx - r.left) / r.width, y = (cy - r.top) / r.height;
+        const x = cx / W, y = cy / H;
         paintTrail(mouse.prevX, mouse.prevY, x, y);
         mouse.prevX = x; mouse.prevY = y;
     };
@@ -723,16 +731,15 @@ function initPixelatedBg(container, videoEl) {
         let touching = false;
         container.addEventListener("pointerdown", e => {
             touching = true;
-            const r = container.getBoundingClientRect();
-            mouse.prevX = (e.clientX - r.left) / r.width;
-            mouse.prevY = (e.clientY - r.top) / r.height;
+            mouse.prevX = e.clientX / W;
+            mouse.prevY = e.clientY / H;
         });
         container.addEventListener("pointermove", e => { if (touching) handleMove(e.clientX, e.clientY); });
         ["pointerup","pointercancel"].forEach(ev => container.addEventListener(ev, () => { touching = false; }));
     }
 
     window.addEventListener("resize", () => {
-        W = container.offsetWidth; H = container.offsetHeight;
+        W = window.innerWidth; H = window.innerHeight;
         renderer.setSize(W, H);
     });
 
