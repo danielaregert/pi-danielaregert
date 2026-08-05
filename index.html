@@ -29,13 +29,6 @@
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="http://danielaregert.com.ar/img/dani-meta-thumbnail.png" />
-    <script type="importmap">
-    {
-        "imports": {
-            "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
-        }
-    }
-    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet" />
     <link rel="icon" type="image/x-icon" href="img/dani-favicon.ico">
@@ -125,32 +118,6 @@
             50.01%, 100% { opacity: 1; }
         }
 
-        .pixelated-bg {
-            position: relative;
-            overflow: hidden;
-        }
-        .pixelated-bg-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 0;
-        }
-        .pixelated-bg canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 0;
-        }
-        .pixelated-bg > * {
-            position: relative;
-            z-index: 10;
-        }
         @keyframes argentina-blink {
             0%, 100% { color: #ffffff; }
             50%      { color: #87ceeb; }
@@ -173,11 +140,7 @@
         }
     </style>
 </head>
-<body class="bg-black text-gray-900 font-sans">
-
-    <video id="pixel-video" autoplay muted loop playsinline style="position:fixed;opacity:0;pointer-events:none;width:1px;height:1px;top:0;left:0;">
-        <source src="./assets/hero.mp4" type="video/mp4" />
-    </video>
+<body class="bg-white text-gray-900 font-sans">
 
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-57P8ZJTP"
@@ -197,24 +160,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- Nav fijo -->
     <nav class="fixed top-0 w-full z-50">
         <div class="flex justify-center md:hidden py-3">
-            <button id="menu-toggle" class="text-white text-3xl leading-none focus:outline-none" aria-label="Menú" aria-expanded="false">
+            <button id="menu-toggle" class="text-lime-900 text-3xl leading-none focus:outline-none" aria-label="Menú" aria-expanded="false">
                 <span id="menu-icon">☰</span>
             </button>
         </div>
         <ul id="mobile-menu" class="flex flex-col md:flex-row items-center md:justify-between gap-1 py-0 md:py-4 md:px-2 overflow-hidden" style="height:0;">
-            <li><a href="https://nohagasnada.danielaregert.com.ar/" class="block text-white py-2 md:py-0 hover:underline">Hoy no hagas nada</a></li>
-            <li><a href="./contacto.html" class="block text-white py-2 md:py-0 hover:underline">Contacto</a></li>
+            <li><a href="https://nohagasnada.danielaregert.com.ar/" class="block text-lime-900 py-2 md:py-0 hover:underline">Hoy no hagas nada</a></li>
+            <li><a href="./contacto.html" class="block text-lime-900 py-2 md:py-0 hover:underline">Contacto</a></li>
         </ul>
     </nav>
 
 
     <!-- Caminantes: viven fijos en el viewport -->
-    <p id="walker1" class="walker text-base text-white"><span class="ear">૮</span>₍ ˶ᵔ ᵕ ᵔ˶ ₎<span class="ear">ა</span></p>
-    <p id="walker2" class="walker text-base text-white"><span class="char-swap"><span class="char-a">Ñ</span><span class="char-b">✧</span></span> ( • ᴗ <span class="char-swap"><span class="char-a">-</span><span class="char-b">•</span></span> ) <span class="char-swap"><span class="char-a">✧</span><span class="char-b">Ñ</span></span></p>
-    <p id="walker3" class="walker text-base text-white">~(<span class="char-swap"><span class="char-a">˘</span><span class="char-b">¯</span></span><span class="char-swap"><span class="char-a">▾</span><span class="char-b">³</span></span><span class="char-swap"><span class="char-a">˘</span><span class="char-b">¯</span></span>~)</p>
-    <p id="walker4" class="walker text-base text-white">(~<span class="char-swap"><span class="char-a">˘</span><span class="char-b">¯</span></span><span class="char-swap"><span class="char-a">▾</span><span class="char-b">³</span></span><span class="char-swap"><span class="char-a">˘</span><span class="char-b">¯</span></span>)~</p>
+    <p id="walker1" class="walker text-base text-lime-900"><span class="ear">૮</span>₍ ˶ᵔ ᵕ ᵔ˶ ₎<span class="ear">ა</span></p>
+    <p id="walker2" class="walker text-base text-lime-900"><span class="char-swap"><span class="char-a">Ñ</span><span class="char-b">✧</span></span> ( • ᴗ <span class="char-swap"><span class="char-a">-</span><span class="char-b">•</span></span> ) <span class="char-swap"><span class="char-a">✧</span><span class="char-b">Ñ</span></span></p>
+    <p id="walker3" class="walker text-base text-lime-900">~(<span class="char-swap"><span class="char-a">˘</span><span class="char-b">¯</span></span><span class="char-swap"><span class="char-a">▾</span><span class="char-b">³</span></span><span class="char-swap"><span class="char-a">˘</span><span class="char-b">¯</span></span>~)</p>
+    <p id="walker4" class="walker text-base text-lime-900">(~<span class="char-swap"><span class="char-a">˘</span><span class="char-b">¯</span></span><span class="char-swap"><span class="char-a">▾</span><span class="char-b">³</span></span><span class="char-swap"><span class="char-a">˘</span><span class="char-b">¯</span></span>)~</p>
     <!-- Combinado: cuando se encuentran en el centro -->
-    <p id="walker-combined" class="walker text-base text-white" style="white-space:nowrap;">
+    <p id="walker-combined" class="walker text-base text-lime-900" style="white-space:nowrap;">
         (~˘▾˘)<span id="hand-left" class="inline-block" style="transform-origin: right center;">~</span><span id="hand-right" class="inline-block" style="transform-origin: left center;">~</span>(˘▾˘~)
     </p>
     <!-- Canvas para la lluvia matter.js -->
@@ -225,7 +188,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <!-- Cartel de los glaciares - fixed al viewport -->
     <div id="ascii-mask" class="fixed z-40 pointer-events-none" style="left:50%; top:50%; transform:translate(-50%,-50%); overflow:hidden; height:0px;">
-        <pre id="ascii-message" class="blink-sharp text-white" style="font-size:clamp(4px,1.1vw,10px); line-height:1.1; font-family:monospace; text-align:center; white-space:pre; margin:0;">
+        <pre id="ascii-message" class="blink-sharp text-lime-900" style="font-size:clamp(4px,1.1vw,10px); line-height:1.1; font-family:monospace; text-align:center; white-space:pre; margin:0;">
 ░██    ░██                                                                                         
 ░██    ░██                                                                                         
 ░██    ░██  ░██████   ░█████████████   ░███████   ░███████                                         
@@ -261,19 +224,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <!-- ========== PANTALLA 2 - se pinea, los caminantes pasan ========== -->
     <section id="pinned-stage" class="w-screen h-screen flex items-center justify-center md:px-[1rem] md:py-[1rem] relative z-10">
-        <div class="pixelated-bg w-full h-full rounded-2xl shadow-sm flex flex-col items-center justify-center text-center p-6">
+        <div class="bg-gradient-to-br from-pink-100 to-violet-50 w-full h-full rounded-2xl shadow-sm flex flex-col items-center justify-center text-center p-6">
             <div id="stage-text-mask" class="overflow-hidden">
                 <div id="stage-text">
                     <div class="container-a">
                         <section class="animation">
-                            <div class="first text-white"><div>ʕʘ̅͜ʘ̅ʔ✿ʕ ◕ᴥ◕ ʔ</div></div>
-                            <div class="second text-white"><div>⊂(￣(ｴ)￣)⊃</div></div>
-                            <div class="third text-white"><div>*ʕ◉ᴥ◉ʔ*</div></div>
+                            <div class="first text-lime-900"><div>ʕʘ̅͜ʘ̅ʔ✿ʕ ◕ᴥ◕ ʔ</div></div>
+                            <div class="second text-lime-900"><div>⊂(￣(ｴ)￣)⊃</div></div>
+                            <div class="third text-lime-900"><div>*ʕ◉ᴥ◉ʔ*</div></div>
                         </section>
                     </div>
-                    <div class="text-6xl font-bold mb-4 text-white">Hola</div>
-                    <p class="text-base w-full sm:w-80 text-white">soy Daniela Regert(≖ᴗ≖)</p>
-                    <p class="text-base w-full sm:w-80 text-white">Bienvenid@ a mi espacio en internet (˶ˆᗜˆ˵)</p>
+                    <div class="text-6xl font-bold mb-4 text-lime-900">Hola</div>
+                    <p class="text-base w-full sm:w-80 text-lime-900">soy Daniela Regert(≖ᴗ≖)</p>
+                    <p class="text-base w-full sm:w-80 text-lime-900">Bienvenid@ a mi espacio en internet (˶ˆᗜˆ˵)</p>
                 </div>
             </div>
         </div>
@@ -283,11 +246,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- Footer fijo -->
     <footer class="fixed bottom-0 w-full z-50 hidden" style="background: linear-gradient(0deg,rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);">
         <ul class="flex justify-center gap-2 md:justify-between">
-            <li><a href="/me-aburro.html" target="_blank" class="text-white hidden">Me aburro</a></li>
+            <li><a href="/me-aburro.html" target="_blank" class="text-lime-900 hidden">Me aburro</a></li>
             <li class="pb-5 pe-5">
-                <a href="https://www.linkedin.com/in/danielaregert/" class="text-white"><i class="bi bi-linkedin"></i></a>
-                <a href="https://github.com/danielaregert" class="text-white"><i class="bi bi-github"></i></a>
-                <a href="https://www.behance.net/danielaregert" class="text-white"><i class="bi bi-behance"></i></a>
+                <a href="https://www.linkedin.com/in/danielaregert/" class="text-lime-900"><i class="bi bi-linkedin"></i></a>
+                <a href="https://github.com/danielaregert" class="text-lime-900"><i class="bi bi-github"></i></a>
+                <a href="https://www.behance.net/danielaregert" class="text-lime-900"><i class="bi bi-behance"></i></a>
             </li>
         </ul>
     </footer>
@@ -632,131 +595,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             });
         }
     });
-</script>
-
-<script type="module">
-import * as THREE from "three";
-
-function initPixelatedBg(container, videoEl) {
-    const mouse = { prevX: 0.5, prevY: 0.5 };
-    const S = { grid: 100, radius: 0.1, strength: 1, relaxation: 0.94 };
-
-    let W = window.innerWidth, H = window.innerHeight;
-    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
-    camera.position.z = 1;
-
-    const texture = new THREE.VideoTexture(videoEl);
-    texture.minFilter = THREE.NearestFilter;
-    texture.magFilter = THREE.NearestFilter;
-    texture.wrapS = THREE.ClampToEdgeWrapping;
-    texture.wrapT = THREE.ClampToEdgeWrapping;
-    texture.generateMipmaps = false;
-
-    const size = S.grid;
-    const data = new Float32Array(size * size * 4);
-    for (let i = 0; i < data.length; i += 4) {
-        data[i] = 0; data[i + 1] = 0; data[i + 2] = 0; data[i + 3] = 1;
-    }
-    const dataTex = new THREE.DataTexture(data, size, size, THREE.RGBAFormat, THREE.FloatType);
-    dataTex.magFilter = THREE.NearestFilter;
-    dataTex.minFilter = THREE.NearestFilter;
-    dataTex.needsUpdate = true;
-
-    const material = new THREE.ShaderMaterial({
-        uniforms: {
-            uTexture: { value: texture },
-            uDataTexture: { value: dataTex },
-            uGrid: { value: S.grid }
-        },
-        vertexShader: `varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position,1.0);}`,
-        fragmentShader: `
-            uniform sampler2D uTexture;
-            uniform sampler2D uDataTexture;
-            uniform float uGrid;
-            varying vec2 vUv;
-            void main(){
-                vec2 pixelUv=floor(vUv*uGrid)/uGrid;
-                vec2 offset=texture2D(uDataTexture,pixelUv).rg;
-                gl_FragColor=texture2D(uTexture,pixelUv-offset*0.6);
-            }
-        `
-    });
-
-    const scene = new THREE.Scene();
-    scene.add(new THREE.Mesh(new THREE.PlaneGeometry(2,2), material));
-
-    const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
-    renderer.setSize(W, H);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.domElement.classList.add("pixelated-bg-canvas");
-    document.body.appendChild(renderer.domElement);
-
-    function paintTrail(fx, fy, tx, ty) {
-        const d = dataTex.image.data;
-        const sx = fx * size, sy = (1 - fy) * size;
-        const ex = tx * size, ey = (1 - ty) * size;
-        const dx = ex - sx, dy = ey - sy;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        const steps = Math.ceil(dist);
-        for (let i = 0; i <= steps; i++) {
-            const t = i / steps;
-            const x = sx + dx * t, y = sy + dy * t;
-            const R = size * S.radius, R2 = R * R;
-            for (let iy = 0; iy < size; iy++) {
-                for (let ix = 0; ix < size; ix++) {
-                    const px = ix - x, py = iy - y, d2 = px * px + py * py;
-                    if (d2 < R2) {
-                        const idx = 4 * (ix + iy * size);
-                        const f = 1 - d2 / R2;
-                        d[idx] += dx * 0.002 * f * S.strength;
-                        d[idx + 1] -= dy * 0.002 * f * S.strength;
-                    }
-                }
-            }
-        }
-        dataTex.needsUpdate = true;
-    }
-
-    const isTouch = window.matchMedia("(pointer: coarse)").matches;
-    const handleMove = (cx, cy) => {
-        const x = cx / W, y = cy / H;
-        paintTrail(mouse.prevX, mouse.prevY, x, y);
-        mouse.prevX = x; mouse.prevY = y;
-    };
-
-    if (!isTouch) {
-        container.addEventListener("pointermove", e => handleMove(e.clientX, e.clientY));
-    } else {
-        let touching = false;
-        container.addEventListener("pointerdown", e => {
-            touching = true;
-            mouse.prevX = e.clientX / W;
-            mouse.prevY = e.clientY / H;
-        });
-        container.addEventListener("pointermove", e => { if (touching) handleMove(e.clientX, e.clientY); });
-        ["pointerup","pointercancel"].forEach(ev => container.addEventListener(ev, () => { touching = false; }));
-    }
-
-    window.addEventListener("resize", () => {
-        W = window.innerWidth; H = window.innerHeight;
-        renderer.setSize(W, H);
-    });
-
-    (function render() {
-        const d = dataTex.image.data;
-        for (let i = 0; i < d.length; i += 4) { d[i] *= S.relaxation; d[i + 1] *= S.relaxation; }
-        dataTex.needsUpdate = true;
-        renderer.render(scene, camera);
-        requestAnimationFrame(render);
-    })();
-}
-
-const video = document.getElementById("pixel-video");
-function boot() {
-    document.querySelectorAll(".pixelated-bg").forEach(c => initPixelatedBg(c, video));
-}
-if (video.readyState >= 2) boot();
-else video.addEventListener("loadeddata", boot, { once: true });
 </script>
 
 </body>
